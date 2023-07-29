@@ -16,8 +16,10 @@ function consoleLogQandA () {
 
 let startButton = document.querySelector("#start-btn");
 let clockPara = document.querySelector("#clock");
+let optionList = document.querySelector("#options");
 let secondsRemaining = -1;  // initial place-holder value
 let timerID = -1;
+let currentQuestionNum = 0;
 
 function disableStartButton() {
     startButton.setAttribute("style","visibility:hidden;");  // TODO - is this best?  Should we disable instead?
@@ -50,8 +52,31 @@ function startTimer() {
     }, 1000);
 }
 
+function renderQandA() {
+    if (currentQuestionNum < 0 || currentQuestionNum >= questions.length || secondsRemaining <= 0) {
+        return;
+    }
+    optionList.innerHTML = '';
+    console.log("render pre loop : " + currentQuestionNum);
+    for (let i=0;i<questions[currentQuestionNum].length;i++) {
+        console.log("q " + currentQuestionNum + " : i " + i + " " + questions[currentQuestionNum].answers[i]);
+        let liElem = document.createElement("li");
+        liElem.textContent = "option : " + questions[currentQuestionNum].answers[i];
+        optionList.appendChild(liElem);
+    }
+}
+
 function loopThruQuestions() {
     // TODO
+    if (secondsRemaining <= 0) {
+        return;
+    }
+    document.querySelector("main").style.visibility = 'visible';
+    currentQuestionNum = 0;
+    while (secondsRemaining > 0 && currentQuestionNum < questions.length) {
+        renderQandA();
+        currentQuestionNum++;
+    }
 }
 
 function showResult() {
