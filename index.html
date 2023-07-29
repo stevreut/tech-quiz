@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
+    <title>Timed Technical Quiz</title>
 </head>
 <body>
-    <h1>placeholder header</h1>
+    <header>
+        <div><p id="clock">clock</p></div>
+        <h1>Quiz</h1>
+        <button type="button" id="start-btn">Start Quiz</button>
+    </header>
+    <main>
+        <p id="question"></p>
+        <ul id="options">
+            <li>dummy option</li>
+        </ul>
+        <div>
+            <p id="result">result</p>
+        </div>
+    </main>
     <script src="./assets/scripts/questions.js"></script>
     <script src="./assets/scripts/script.js"></script>
 </body>
