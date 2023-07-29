@@ -86,7 +86,7 @@ function renderQandA() {
         console.log ('no optiv id found')
     } else {
         console.log('optdiv found');
-        buttonListener = optdiv.addEventListener("click",handleOptionButton(event));
+        optdiv.addEventListener("click",handleOptionButton);
     }
 }
 
