@@ -25,21 +25,37 @@ function disableStartButton() {
 
 function showTime() {
     clockPara.textContent = (secondsRemaining + " seconds left");
+    if (secondsRemaining <= 20) {
+        clockPara.style.color = '#ff0000';
+    } else {
+        clockPara.style.color = '#0080ff';
+    }
 }
 
 function startTimer() {
     clockPara.setAttribute("style","visibility:visible;");
-    secondsRemaining = 100;  // TODO
+    secondsRemaining = 30;  // TODO
     showTime();
     timerID = setInterval(function() {
         secondsRemaining--;
         if (secondsRemaining <= 0) {
             clearInterval(timerID);
+            clockPara.textContent = "TIME IS UP!";
+            clockPara.style.color = '#ff0000';
+            clockPara.style.fontWeight = 'bold';
             // TODO - other?
         } else {
             showTime();
         }
     }, 1000);
+}
+
+function loopThruQuestions() {
+    // TODO
+}
+
+function showResult() {
+    // TODO
 }
 
 function startQuiz() {
