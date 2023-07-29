@@ -20,6 +20,7 @@ let optionList = document.querySelector("#options");
 let secondsRemaining = -1;  // initial place-holder value
 let timerID = -1;
 let currentQuestionNum = 0;
+let buttonListener;  // TODO
 
 function disableStartButton() {
     startButton.setAttribute("style","visibility:hidden;");  // TODO - is this best?  Should we disable instead?
@@ -30,7 +31,7 @@ function showTime() {
     if (secondsRemaining <= 20) {
         clockPara.style.color = '#ff0000';
     } else {
-        clockPara.style.color = '#0080ff';
+        clockPara.style.color = '#0040ff';
     }
 }
 
@@ -52,6 +53,19 @@ function startTimer() {
     }, 1000);
 }
 
+function handleOptionButton(event) {
+    console.log('event trapped: ' + event);
+    let elem = event.target;
+    console.log('targe trapped: ' + elem);
+    if (elem.matches("button")) {
+        console.log('trapped IS button:');
+        let dtn = elem.getAttribute("data-index");
+        console.log("dtn = " + dtn);
+    } else {
+        console.log('trapped was not button!');
+    }
+}
+
 function renderQandA() {
     if (currentQuestionNum < 0 || currentQuestionNum >= questions.length || secondsRemaining <= 0) {
         return;
@@ -63,9 +77,16 @@ function renderQandA() {
         let liElem = document.createElement("li");
         let btn = document.createElement("button");
         btn.textContent = questions[currentQuestionNum].answers[i];
-        btn.setAttribute("data-idx",(i+1));
+        btn.setAttribute("data-index",(i+1));
         liElem.appendChild(btn);
         optionList.appendChild(liElem);
+    }
+    let optdiv = document.getElementById("optdiv");
+    if (optdiv === null) {
+        console.log ('no optiv id found')
+    } else {
+        console.log('optdiv found');
+        buttonListener = optdiv.addEventListener("click",handleOptionButton(event));
     }
 }
 
