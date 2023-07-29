@@ -58,10 +58,13 @@ function renderQandA() {
     }
     optionList.innerHTML = '';
     console.log("render pre loop : " + currentQuestionNum);
-    for (let i=0;i<questions[currentQuestionNum].length;i++) {
+    for (let i=0;i<questions[currentQuestionNum].answers.length;i++) {
         console.log("q " + currentQuestionNum + " : i " + i + " " + questions[currentQuestionNum].answers[i]);
         let liElem = document.createElement("li");
-        liElem.textContent = "option : " + questions[currentQuestionNum].answers[i];
+        let btn = document.createElement("button");
+        btn.textContent = questions[currentQuestionNum].answers[i];
+        btn.setAttribute("data-idx",(i+1));
+        liElem.appendChild(btn);
         optionList.appendChild(liElem);
     }
 }
@@ -73,10 +76,11 @@ function loopThruQuestions() {
     }
     document.querySelector("main").style.visibility = 'visible';
     currentQuestionNum = 0;
-    while (secondsRemaining > 0 && currentQuestionNum < questions.length) {
+    // TODO - temporarily disabled looping for debug purposes
+    // while (secondsRemaining > 0 && currentQuestionNum < questions.length) {
         renderQandA();
-        currentQuestionNum++;
-    }
+    //     currentQuestionNum++;
+    // }
 }
 
 function showResult() {
