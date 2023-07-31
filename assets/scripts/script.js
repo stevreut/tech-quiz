@@ -8,12 +8,17 @@ let currentQuestionNum = 0;
 let questionPara = document.querySelector("#question");
 let questionHasBeenAnswered = false;
 let resultPara = document.querySelector("#result");
+let correctCount = 0;
+let wrongCount = 0;
 
 function disableStartButton() {
-    startButton.setAttribute("style","visibility:hidden;");  // TODO - is this best?  Should we disable instead?
+    startButton.setAttribute("style","visibility:hidden;");
 }
 
 function showTime() {
+    if (secondsRemaining < 0) {
+        secondsRemaining = 0;
+    }
     clockPara.textContent = (secondsRemaining + " seconds left");
     if (secondsRemaining <= 20) {
         clockPara.style.color = '#ff0000';
@@ -33,7 +38,6 @@ function startTimer() {
             clockPara.textContent = "TIME IS UP!";
             clockPara.style.color = '#ff0000';
             clockPara.style.fontWeight = 'bold';
-            // TODO - other?
         } else {
             showTime();
         }
@@ -55,19 +59,23 @@ function handleOptionButton(event) {
         console.log("dtn = " + dtn);
         if (dtn == 0) {
             resultPara.textContent = "Correct!";
+            correctCount++;
         } else {
             resultPara.textContent = "Wrong!";
             secondsRemaining -= 5;
+            if (secondsRemaining < 0) {
+                secondsRemaining = 0;
+            }
+            wrongCount++;
             showTime();
         }
         questionHasBeenAnswered = true;
         let buttonArray = document.querySelectorAll("ul>li>button");
         for (let i=0;i<buttonArray.length;i++) {
             buttonArray[i].disabled = true;
-            // TODO - will have to reenable when drawn again, does that happen automatically?
         }
         currentQuestionNum++;
-        questionPauseID = setInterval(renderQandA, 1250);  // TODO - adjust timing
+        questionPauseID = setInterval(renderQandA, 1250);
     } else {
         console.log('trapped was not button!');
     }
@@ -130,13 +138,13 @@ function renderQandA() {
 }
 
 function loopThruQuestions() {
-    // TODO
     if (secondsRemaining <= 0) {
         return;
     }
     document.querySelector("main").style.visibility = 'visible';
     currentQuestionNum = 0;
     renderQandA();
+    console.log('do we ever get here?');
 }
 
 function showResult() {
