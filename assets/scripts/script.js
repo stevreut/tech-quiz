@@ -19,8 +19,12 @@ let clockPara = document.querySelector("#clock");
 let optionList = document.querySelector("#options");
 let secondsRemaining = -1;  // initial place-holder value
 let timerID = -1;
+let questionPauseID = -1;
 let currentQuestionNum = 0;
 let buttonListener;  // TODO
+let questionPara = document.querySelector("#question");
+let questionHasBeenAnswered = false;
+let resultPara = document.querySelector("#result");
 
 function disableStartButton() {
     startButton.setAttribute("style","visibility:hidden;");  // TODO - is this best?  Should we disable instead?
@@ -54,6 +58,11 @@ function startTimer() {
 }
 
 function handleOptionButton(event) {
+    clearInterval(questionPauseID);
+    if (currentQuestionNum < 0 || currentQuestionNum >= questions.length || 
+        secondsRemaining <= 0 || questionHasBeenAnswered) {
+        return;
+    }
     console.log('event trapped: ' + event);
     let elem = event.target;
     console.log('targe trapped: ' + elem);
@@ -61,15 +70,28 @@ function handleOptionButton(event) {
         console.log('trapped IS button:');
         let dtn = elem.getAttribute("data-index");
         console.log("dtn = " + dtn);
+        if (dtn == 1) {  // TODO - subject to revision once options are randomized
+            resultPara.textContent = "Correct!";
+        } else {
+            resultPara.textContent = "Wrong!";
+            secondsRemaining -= 5;
+            showTime();
+        }
+        questionHasBeenAnswered = true;
+        currentQuestionNum++;
+        questionPauseID = setInterval(renderQandA, 1500);  // TODO - adjust timing
     } else {
         console.log('trapped was not button!');
     }
 }
 
 function renderQandA() {
+    questionHasBeenAnswered = false;
+    resultPara.textContent = "";
     if (currentQuestionNum < 0 || currentQuestionNum >= questions.length || secondsRemaining <= 0) {
         return;
     }
+    questionPara.textContent = questions[currentQuestionNum].question;
     optionList.innerHTML = '';
     console.log("render pre loop : " + currentQuestionNum);
     for (let i=0;i<questions[currentQuestionNum].answers.length;i++) {
@@ -86,7 +108,7 @@ function renderQandA() {
         console.log ('no optiv id found')
     } else {
         console.log('optdiv found');
-        optdiv.addEventListener("click",handleOptionButton);
+        optdiv.addEventListener("click",handleOptionButton);  // TODO - Do this every time or just at beginning of loop?
     }
 }
 
@@ -97,11 +119,7 @@ function loopThruQuestions() {
     }
     document.querySelector("main").style.visibility = 'visible';
     currentQuestionNum = 0;
-    // TODO - temporarily disabled looping for debug purposes
-    // while (secondsRemaining > 0 && currentQuestionNum < questions.length) {
-        renderQandA();
-    //     currentQuestionNum++;
-    // }
+    renderQandA();
 }
 
 function showResult() {
