@@ -9,6 +9,12 @@ let questions = [
      answers: ['False', 'True']
     },
     {question: 'What is the capitol of Delaware',
-     answers: ['Dover','Miami','Wilmington','Harrisburg','Baltimore','Annapolis',]
-    }
+     answers: ['Dover','Miami','Wilmington','Harrisburg','Baltimore','Annapolis']
+    },
+    {question: 'What month is this?',
+     answers: ['August','July','November','Saturday','the moon']
+    },
+    {question: 'What sea do Spain, France, and Italy all have a coast on?',
+     answers: ['Mediterranean','Black','Caspian','Irish','Caribbean']
+    }   
 ];
