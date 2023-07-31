@@ -78,8 +78,13 @@ function handleOptionButton(event) {
             showTime();
         }
         questionHasBeenAnswered = true;
+        let buttonArray = document.querySelectorAll("ul>li>button");
+        for (let i=0;i<buttonArray.length;i++) {
+            buttonArray[i].disabled = true;
+            // TODO - will have to reenable when drawn again, does that happen automatically?
+        }
         currentQuestionNum++;
-        questionPauseID = setInterval(renderQandA, 1500);  // TODO - adjust timing
+        questionPauseID = setInterval(renderQandA, 1250);  // TODO - adjust timing
     } else {
         console.log('trapped was not button!');
     }
