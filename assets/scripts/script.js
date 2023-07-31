@@ -5,7 +5,6 @@ let secondsRemaining = -1;  // initial place-holder value
 let timerID = -1;
 let questionPauseID = -1;
 let currentQuestionNum = 0;
-let buttonListener;  // TODO
 let questionPara = document.querySelector("#question");
 let questionHasBeenAnswered = false;
 let resultPara = document.querySelector("#result");
@@ -54,7 +53,7 @@ function handleOptionButton(event) {
         console.log('trapped IS button:');
         let dtn = elem.getAttribute("data-index");
         console.log("dtn = " + dtn);
-        if (dtn == 1) {  // TODO - subject to revision once options are randomized
+        if (dtn == 0) {
             resultPara.textContent = "Correct!";
         } else {
             resultPara.textContent = "Wrong!";
@@ -74,7 +73,34 @@ function handleOptionButton(event) {
     }
 }
 
+function getPermutations(n) {
+    console.log('getperm called with  ' + n);
+    if (n < 1) {
+        return [];
+    } else if (n === 1) {
+        return [0];
+    } else {
+        let arr = [];
+        // build array [0, 1, 2, ...(n-1)]
+        for (let i=0;i<n;i++) {
+            arr[i] = i;
+        }
+        console.log('gp initial = ' + arr);
+        let outArr = [];
+        while (arr.length > 0) {
+            let r = Math.floor(Math.random()*arr.length);
+            console.log('gp randeom idx = ' + r);
+            outArr.push(arr[r]);
+            console.log('gp output inter = ' + outArr);
+            arr.splice(r, 1);
+            console.log('gp revised in arr = ' + arr);
+        }
+        return outArr;
+    }
+}
+
 function renderQandA() {
+    clearInterval(questionPauseID);
     questionHasBeenAnswered = false;
     resultPara.textContent = "";
     if (currentQuestionNum < 0 || currentQuestionNum >= questions.length || secondsRemaining <= 0) {
@@ -83,12 +109,14 @@ function renderQandA() {
     questionPara.textContent = questions[currentQuestionNum].question;
     optionList.innerHTML = '';
     console.log("render pre loop : " + currentQuestionNum);
+    let perm = getPermutations(questions[currentQuestionNum].answers.length);
     for (let i=0;i<questions[currentQuestionNum].answers.length;i++) {
         console.log("q " + currentQuestionNum + " : i " + i + " " + questions[currentQuestionNum].answers[i]);
         let liElem = document.createElement("li");
         let btn = document.createElement("button");
-        btn.textContent = questions[currentQuestionNum].answers[i];
-        btn.setAttribute("data-index",(i+1));
+        let origIdx = perm[i];
+        btn.textContent = questions[currentQuestionNum].answers[origIdx];
+        btn.setAttribute("data-index",origIdx);
         liElem.appendChild(btn);
         optionList.appendChild(liElem);
     }
