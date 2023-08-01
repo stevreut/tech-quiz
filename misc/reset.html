@@ -3,16 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <style>
+        body {
+            background-color: bisque;
+            color:darkgreen;
+            margin: 20px 20px 20px 20px;
+        }
+    </style>
+    <title>TEST RESET PAGE</title>
 </head>
 <body>
     <h1>Reset Page</h1>
-    <h2>high-score and game-score storage should not be cleared</h2>
+    <h2>Utility for resetting localStorage values while testing</h2>
+    <p>
+    <button id="btn1">clear game-score</button>
+    <button id="btn2">clear high-score</button>
+    <button id="btn3">clear BOTH</button>
+    </p>
+    <p>
+    <textarea></textarea>
+    </p>
     <script>
-        localStorage.removeItem("high-score");
-        console.log("high-score cleared");
-        localStorage.removeItem("game-score");
-        console.log("game-score cleared");
+        function clearStat(event) {
+            let tx = document.querySelector("textarea");
+            tx.value = "";
+            let button = event.target;
+            console.log('button = ' + button);
+            let btnId = button.getAttribute("id");
+            console.log('button id = ' + btnId);
+            let n = parseInt(btnId.charAt(btnId.length-1));
+            if (n === 1 || n === 3) {
+                localStorage.removeItem("game-score");
+                tx.value += "game-score removed\n";
+                console.log("game-score removed at " + (new Date()));
+            }
+            if (n === 2 || n === 3) {
+                localStorage.removeItem("high-score");
+                tx.value += "high-score removed\n";
+                console.log("high-score removed at " + (new Date()));
+            }
+        }
+        document.querySelector("#btn1").addEventListener("click",clearStat);
+        document.querySelector("#btn2").addEventListener("click",clearStat);
+        document.querySelector("#btn3").addEventListener("click",clearStat);
     </script>
 </body>
 </html>
