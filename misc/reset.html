@@ -10,10 +10,11 @@
             color: #736750;
             margin: 20px 20px 20px 20px;
         }
+
         textarea {
             width: 254px;
             height: 59px;
-            background-color:   #f5ebe0;
+            background-color: #f5ebe0;
         }
     </style>
     <title>TEST RESET PAGE</title>
@@ -40,7 +41,7 @@
             let button = event.target;
             console.log('button = ' + button);
             let btnId = button.getAttribute("id");
-            if (btnId.substring(0,3) === "btn") {
+            if (btnId.substring(0, 3) === "btn") {
                 console.log('button id = ' + btnId);
                 let n = parseInt(btnId.charAt(btnId.length - 1));
                 if (n === 1 || n === 4) {
@@ -55,7 +56,7 @@
                 }
                 if (n === 3 || n === 4) {
                     localStorage.removeItem("high-scores");
-                    tx.value +=  "high-scores (plural) removed\n";
+                    tx.value += "high-scores (plural) removed\n";
                     console.log("high-scores (plural) removed at " + (new Date()));
                 }
             }
