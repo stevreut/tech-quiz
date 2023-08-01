@@ -82,7 +82,10 @@ function handleOptionButton(event) {
             buttonArray[i].disabled = true;
         }
         currentQuestionNum++;
-        questionPauseID = setInterval(renderQandA, 1250);
+        if (currentQuestionNum >= questions.length) {
+            secondsRemaining = 0;
+        }
+        questionPauseID = setInterval(renderQandA, 800);
     } else {
         console.log('trapped was not button!');
     }
