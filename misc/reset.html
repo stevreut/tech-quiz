@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             background-color: bisque;
-            color:darkgreen;
+            color: #736750;
             margin: 20px 20px 20px 20px;
+        }
+        textarea {
+            width: 254px;
+            height: 59px;
+            background-color:   #f5ebe0;
         }
     </style>
     <title>TEST RESET PAGE</title>
 </head>
+
 <body>
     <h1>Reset Page</h1>
     <h2>Utility for resetting localStorage values while testing</h2>
     <p>
-    <button id="btn1">clear game-score</button>
-    <button id="btn2">clear high-score</button>
-    <button id="btn3">clear BOTH</button>
+    <div id="butns">
+        <button id="btn1">clear game-score</button>
+        <button id="btn2">clear high-score</button>
+        <button id="btn3">clear high-scores</button>
+        <button id="btn4">clear ALL THREE</button>
+    </div>
     </p>
     <p>
-    <textarea></textarea>
+        <textarea></textarea>
     </p>
     <script>
         function clearStat(event) {
@@ -30,22 +40,28 @@
             let button = event.target;
             console.log('button = ' + button);
             let btnId = button.getAttribute("id");
-            console.log('button id = ' + btnId);
-            let n = parseInt(btnId.charAt(btnId.length-1));
-            if (n === 1 || n === 3) {
-                localStorage.removeItem("game-score");
-                tx.value += "game-score removed\n";
-                console.log("game-score removed at " + (new Date()));
-            }
-            if (n === 2 || n === 3) {
-                localStorage.removeItem("high-score");
-                tx.value += "high-score removed\n";
-                console.log("high-score removed at " + (new Date()));
+            if (btnId.substring(0,3) === "btn") {
+                console.log('button id = ' + btnId);
+                let n = parseInt(btnId.charAt(btnId.length - 1));
+                if (n === 1 || n === 4) {
+                    localStorage.removeItem("game-score");
+                    tx.value += "game-score removed\n";
+                    console.log("game-score removed at " + (new Date()));
+                }
+                if (n === 2 || n === 4) {
+                    localStorage.removeItem("high-score");
+                    tx.value += "high-score removed\n";
+                    console.log("high-score removed at " + (new Date()));
+                }
+                if (n === 3 || n === 4) {
+                    localStorage.removeItem("high-scores");
+                    tx.value +=  "high-scores (plural) removed\n";
+                    console.log("high-scores (plural) removed at " + (new Date()));
+                }
             }
         }
-        document.querySelector("#btn1").addEventListener("click",clearStat);
-        document.querySelector("#btn2").addEventListener("click",clearStat);
-        document.querySelector("#btn3").addEventListener("click",clearStat);
+        document.querySelector("#butns").addEventListener("click", clearStat);
     </script>
 </body>
+
 </html>
