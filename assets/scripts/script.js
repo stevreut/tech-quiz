@@ -4,12 +4,14 @@ let optionList = document.querySelector("#options");
 let secondsRemaining = -1;  // initial place-holder value
 let timerID = -1;
 let questionPauseID = -1;
+let resultsID = -1;
 let currentQuestionNum = 0;
 let questionPara = document.querySelector("#question");
 let questionHasBeenAnswered = false;
 let resultPara = document.querySelector("#result");
 let correctCount = 0;
 let wrongCount = 0;
+let gameOver = false;
 
 function disableStartButton() {
     startButton.setAttribute("style","visibility:hidden;");
@@ -38,6 +40,9 @@ function startTimer() {
             clockPara.textContent = "TIME IS UP!";
             clockPara.style.color = '#ff0000';
             clockPara.style.fontWeight = 'bold';
+            gameOver = true;
+            resultsID = setInterval(showResults(),3000);
+
         } else {
             showTime();
         }
@@ -48,7 +53,9 @@ function handleOptionButton(event) {
     clearInterval(questionPauseID);
     if (currentQuestionNum < 0 || currentQuestionNum >= questions.length || 
         secondsRemaining <= 0 || questionHasBeenAnswered) {
-        return;
+            clearInterval(questionPauseID);
+            gameOver = true;
+            return;
     }
     console.log('event trapped: ' + event);
     let elem = event.target;
@@ -137,25 +144,28 @@ function renderQandA() {
     }
 }
 
-function loopThruQuestions() {
-    if (secondsRemaining <= 0) {
-        return;
-    }
+function startQuiz() {
+    disableStartButton();
+    startTimer();
+    localStorage.removeItem("game-score");
     document.querySelector("main").style.visibility = 'visible';
     currentQuestionNum = 0;
     renderQandA();
     console.log('do we ever get here?');
 }
 
-function showResult() {
+function spawnResultsPage() {
     // TODO
+    console.log('jumped to score.html');
+    window.location.assign("./score.html");
+    console.log('does this still execute? can I still affect content in score.html?');
+    console.log('Is score.html my new document at this point?');
+    localStorage.setItem("game-score", correctCount);
 }
 
-function startQuiz() {
-    disableStartButton();
-    startTimer();
-    loopThruQuestions();
-    showResult();
+function showResults() {
+    clearInterval(resultsID);
+    spawnResultsPage();
 }
 
 function init() {
