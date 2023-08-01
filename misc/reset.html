@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Reset Page</h1>
+    <h2>high-score and game-score storage should not be cleared</h2>
+    <script>
+        localStorage.removeItem("high-score");
+        console.log("high-score cleared");
+        localStorage.removeItem("game-score");
+        console.log("game-score cleared");
+    </script>
+</body>
+</html>
