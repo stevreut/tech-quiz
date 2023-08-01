@@ -9,3 +9,15 @@ body {
 main {
     visibility: hidden;
 }
+#h2message {
+    visibility: hidden;
+}
+#initials {
+    visibility: hidden;
+}
+#rec-score-button {
+    visibility: hidden;
+}
+#score-list {
+    visibility: hidden;
+}
