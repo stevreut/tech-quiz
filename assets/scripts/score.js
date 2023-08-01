@@ -35,6 +35,20 @@ let gameScore = parseInt(localStorage.getItem("game-score"));
 console.log ('game-score retrieved = ' + gameScore);
 let highScores = JSON.parse(localStorage.getItem("high-scores"));
 console.log ('high-scores retrieved = ' + highScores);
+
+function renderScoreHistory() {
+    if (highScores === null || highScores.length === 0) {
+        return;
+    }
+    let listElem = document.querySelector("#score-list");
+    for (let i=0;i<highScores.length;i++) {
+        let liElem = document.createElement("li");
+        liElem.textContent = highScores[i].inits + " : " + highScores[i].score;
+        listElem.appendChild(liElem);
+    }
+    listElem.style.visibility = 'visible';
+}
+
 if (highScores === null) {
     console.log('setting empty highscores array');
     highScores = [];
@@ -57,7 +71,7 @@ if (gameScore !== null) {
                 recButton.disabled = true;
                 highScores.splice(0,0,{inits:inits,score:gameScore});
                 localStorage.setItem("high-scores",JSON.stringify(highScores));
-                // TODO - still have to display
+                renderScoreHistory();
             }
         })
     }
