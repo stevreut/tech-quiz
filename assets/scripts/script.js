@@ -31,20 +31,19 @@ function startTimer() {
     clockPara.setAttribute("style","visibility:visible;");
     secondsRemaining = 30;  // TODO
     showTime();
-    // Temporary TODO commented for debuggin
-    // timerID = setInterval(function() {
-    //     secondsRemaining--;
-    //     if (secondsRemaining <= 0) {
-    //         clearInterval(timerID);
-    //         clockPara.textContent = "TIME IS UP!";
-    //         clockPara.style.color = '#ff0000';
-    //         clockPara.style.fontWeight = 'bold';
-    //         gameOver = true;
-    //         resultsID = setInterval(showResults(),3000);
-    //     } else {
-    //         showTime();
-    //     }
-    // }, 1000);
+    timerID = setInterval(function() {
+        secondsRemaining--;
+        if (secondsRemaining <= 0) {
+            clearInterval(timerID);
+            clockPara.textContent = "TIME IS UP!";
+            clockPara.style.color = '#ff0000';
+            clockPara.style.fontWeight = 'bold';
+            gameOver = true;
+            resultsID = setInterval(showResults(),3000);
+        } else {
+            showTime();
+        }
+    }, 1000);
 }
 
 function handleOptionButton(event) {
