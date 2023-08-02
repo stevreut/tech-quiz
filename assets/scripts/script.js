@@ -24,8 +24,6 @@ function showTime() {
     clockPara.textContent = (secondsRemaining + " seconds left");
     if (secondsRemaining <= 20) {
         clockPara.style.color = '#ff0000';
-    } else {
-        clockPara.style.color = '#0040ff';
     }
 }
 
@@ -33,20 +31,20 @@ function startTimer() {
     clockPara.setAttribute("style","visibility:visible;");
     secondsRemaining = 30;  // TODO
     showTime();
-    timerID = setInterval(function() {
-        secondsRemaining--;
-        if (secondsRemaining <= 0) {
-            clearInterval(timerID);
-            clockPara.textContent = "TIME IS UP!";
-            clockPara.style.color = '#ff0000';
-            clockPara.style.fontWeight = 'bold';
-            gameOver = true;
-            resultsID = setInterval(showResults(),3000);
-
-        } else {
-            showTime();
-        }
-    }, 1000);
+    // Temporary TODO commented for debuggin
+    // timerID = setInterval(function() {
+    //     secondsRemaining--;
+    //     if (secondsRemaining <= 0) {
+    //         clearInterval(timerID);
+    //         clockPara.textContent = "TIME IS UP!";
+    //         clockPara.style.color = '#ff0000';
+    //         clockPara.style.fontWeight = 'bold';
+    //         gameOver = true;
+    //         resultsID = setInterval(showResults(),3000);
+    //     } else {
+    //         showTime();
+    //     }
+    // }, 1000);
 }
 
 function handleOptionButton(event) {
@@ -133,7 +131,7 @@ function renderQandA() {
         let liElem = document.createElement("li");
         let btn = document.createElement("button");
         let origIdx = perm[i];
-        btn.textContent = questions[currentQuestionNum].answers[origIdx];
+        btn.textContent = (i+1) + ". " + questions[currentQuestionNum].answers[origIdx];
         btn.setAttribute("data-index",origIdx);
         liElem.appendChild(btn);
         optionList.appendChild(liElem);

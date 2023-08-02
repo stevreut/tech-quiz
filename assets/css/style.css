@@ -1,10 +1,34 @@
+:root {
+    --deep-purple: #6d0fbf;
+    --shallow-purple: #bdadca;
+    --pale-bg-color: #fff;
+    --dark-txt-color: #222;
+    --time-warn-color: #d900ff;
+}
+
 body {
-    margin: 20px;
-    background-color: #faebd7;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin:5em;
+    background-color: var(--pale-bg-color);
+    color: var(--dark-txt-color);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#options li {
+    border-style:none;
+    margin: 2px;
+}
+button {
+    background-color: var(--deep-purple);
+    color: var(--pale-bg-color);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--dark-txt-color);
+    border-radius: 5px;
+    padding: 5px 12px;
+    margin: 1px;
 }
 #clock {
     visibility: hidden;
+    color: var(--deep-purple);
 }
 main {
     visibility: hidden;
