@@ -6,6 +6,9 @@
     --time-warn-color: #d900ff;
 }
 
+header h1 {
+    text-align:center;
+}
 body {
     margin:5em;
     background-color: var(--pale-bg-color);
@@ -30,11 +33,13 @@ button:active {
     background-color: var(--shallow-purple);
 }
 #clock {
+    text-align: right;
     visibility: hidden;
     color: var(--deep-purple);
 }
 main {
     visibility: hidden;
+    margin: 5% 33% 
 }
 #h2message {
     visibility: hidden;
