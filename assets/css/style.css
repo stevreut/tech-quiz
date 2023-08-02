@@ -20,11 +20,14 @@ button {
     background-color: var(--deep-purple);
     color: var(--pale-bg-color);
     border-style: solid;
-    border-width: 1px;
+    border-width: 0px;
     border-color: var(--dark-txt-color);
     border-radius: 5px;
     padding: 5px 12px;
     margin: 1px;
+}
+button:active {
+    background-color: var(--shallow-purple);
 }
 #clock {
     visibility: hidden;
